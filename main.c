@@ -8,12 +8,12 @@
 int main()
 {
 
-    struct carte pachet[32],pachet_amestecat[32];
+    struct carte pachet[32],pachetAmestecat[32];
     struct player player1, player2;
     initializarePachet(pachet);
-    amestecarePachet(pachet, pachet_amestecat);
+    amestecarePachet(pachet, pachetAmestecat);
     initializareJoc(&player1, &player2);
-    joc(&player1, &player2,pachet_amestecat);
+    joc(&player1, &player2,pachetAmestecat);
 
     return 0;
 }
