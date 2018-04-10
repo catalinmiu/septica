@@ -1,7 +1,6 @@
-#include "constante.h"
 #include <unistd.h>
 
-void initializare_pachet(struct carte pachet[])
+void initializarePachet(struct carte pachet[])
 {
     int i,valoare=7,k=0;
     for(i=0; i<8; i++)
@@ -23,7 +22,7 @@ void initializare_pachet(struct carte pachet[])
 
 }
 
-void initializare_joc(struct player *player1, struct player *player2)
+void initializareJoc(struct player *player1, struct player *player2)
 {
     int i;
     player1->puncte=0;
@@ -35,7 +34,7 @@ void initializare_joc(struct player *player1, struct player *player2)
     }
 }
 
-void amestecare_pachet(struct carte pachet[], struct carte pachet_amestecat[])
+void amestecarePachet(struct carte pachet[], struct carte pachet_amestecat[])
 {
     int v[32],i,r,k=32,j;
     for(i=0; i<32; i++)
@@ -71,7 +70,7 @@ struct carte extragere(int *carti_ramase, struct carte pachet_amestecat[])
 
 }
 
-void completare_mana(struct player* unplayer, int k, int *carti_ramase, struct carte pachet_amestecat[])
+void completareMana(struct player* unplayer, int k, int *carti_ramase, struct carte pachet_amestecat[])
 {
 
     int i, counter=0;
@@ -90,34 +89,34 @@ void completare_mana(struct player* unplayer, int k, int *carti_ramase, struct c
 
 void incepere_mana(struct player* player1, struct player* player2, int *carti_ramase, struct carte pachet_amestecat[])
 {
-    completare_mana(player1,1, carti_ramase, pachet_amestecat);
-    completare_mana(player2,0, carti_ramase, pachet_amestecat);
+    completareMana(player1,1, carti_ramase, pachet_amestecat);
+    completareMana(player2,0, carti_ramase, pachet_amestecat);
 }
 
-void afisare_mana(struct player* unplayer, struct carte carti_masa[], int pozitie_carte_pachet)
+void afisareMana(struct player* unplayer, struct carte carti_masa[], int pozitie_carte_pachet)
 {
     int i,j=0;
     struct carte copie;
     for(i=0; i<4; i++)
     {
-        copie= unplayer->mana[i];
+        copie = unplayer->mana[i];
 
         if(copie.valoare>0)
         {
             if(pozitie_carte_pachet>=1 && j==0)
             {
-                printf("%c ---------------------                              ---------------------%c",NEWLINE, NEWLINE);
+                printf("\n ---------------------                              ---------------------\n");
                 if(copie.valoare<10)
-                    printf("| %d)%d%c                |                              %d%c                   %c",i,unplayer->mana[i].valoare, unplayer->mana[i].simbol,carti_masa[pozitie_carte_pachet-1].valoare, carti_masa[pozitie_carte_pachet-1].simbol, NEWLINE);
+                    printf("| %d)%d\n                |                              %d\n                  \n",i,unplayer->mana[i].valoare, unplayer->mana[i].simbol,carti_masa[pozitie_carte_pachet-1].valoare, carti_masa[pozitie_carte_pachet-1].simbol, NEWLINE);
                 else
-                    printf("| %d)%d%c               |                              %d%c                  %c",i,unplayer->mana[i].valoare, unplayer->mana[i].simbol,carti_masa[pozitie_carte_pachet-1].valoare, carti_masa[pozitie_carte_pachet-1].simbol, NEWLINE);
-                printf("|                     |                            |                     |%c", NEWLINE);
-                printf("|                     |                            |                     |%c", NEWLINE);
-                printf("|                     |                            |                     |%c", NEWLINE);
-                printf("|                     |                            |                     |%c", NEWLINE);
-                printf("|                     |                            |                     |%c", NEWLINE);
-                printf("|                     |                            |                     |%c", NEWLINE);
-                printf(" ---------------------                              ---------------------%c", NEWLINE);
+                    printf("| %d)%d\n               |                              %d\n                  \n",i,unplayer->mana[i].valoare, unplayer->mana[i].simbol,carti_masa[pozitie_carte_pachet-1].valoare, carti_masa[pozitie_carte_pachet-1].simbol, NEWLINE);
+                printf("|                     |                            |                     |\n", NEWLINE);
+                printf("|                     |                            |                     |\n", NEWLINE);
+                printf("|                     |                            |                     |\n", NEWLINE);
+                printf("|                     |                            |                     |\n", NEWLINE);
+                printf("|                     |                            |                     |\n", NEWLINE);
+                printf("|                     |                            |                     |\n", NEWLINE);
+                printf(" ---------------------                              ---------------------\n", NEWLINE);
                 j=1;
             }
             else
@@ -141,7 +140,7 @@ void afisare_mana(struct player* unplayer, struct carte carti_masa[], int poziti
     }
 }
 
-void punere_masa(struct player* unplayer, struct carte* uncarte, int pozitie_carte_jucator, int *carti_consumate, int *pozitie_carte_pachet, struct carte carti_masa[])
+void punereMasa(struct player* unplayer, struct carte* uncarte, int pozitie_carte_jucator, int *carti_consumate, int *pozitie_carte_pachet, struct carte carti_masa[])
 {
     carti_masa[*pozitie_carte_pachet]=*uncarte;
     unplayer->mana[pozitie_carte_jucator].valoare=-1;
@@ -149,7 +148,7 @@ void punere_masa(struct player* unplayer, struct carte* uncarte, int pozitie_car
     (*carti_consumate)++;
 }
 
-void runda_p_vs_p(struct player* player1, struct player* player2, int ordine, int *carti_ramase, int *carti_consumate, int *castigator, struct carte pachet_amestecat[])
+void rundaPlayerVsPlayer(struct player* player1, struct player* player2, int ordine, int *carti_ramase, int *carti_consumate, int *castigator, struct carte pachet_amestecat[])
 {
     struct carte carti_masa[32];
     int pozitie_carte_jucator,c1,c2,i,puncte=0,rasp,intreaba;
@@ -169,7 +168,7 @@ void runda_p_vs_p(struct player* player1, struct player* player2, int ordine, in
 CONTINUARE:
     intreaba=0;
     printf("%cmanaplayer%d:", NEWLINE,c1);
-    afisare_mana(player1, carti_masa, pozitie_carte_pachet);
+    afisareMana(player1, carti_masa, pozitie_carte_pachet);
     printf("%c%c",NEWLINE, NEWLINE);
 MAI_INCEARCA1:
     printf("Alege cartea pe care vrei sa o pui 0) 1) 2) 3)");
@@ -184,10 +183,10 @@ MAI_INCEARCA1:
     uncarte = player1->mana[pozitie_carte_jucator];
     if(uncarte.valoare==10 || uncarte.valoare==11)
         puncte++;
-    punere_masa(player1, &uncarte, pozitie_carte_jucator, carti_consumate, &pozitie_carte_pachet, carti_masa);
+    punereMasa(player1, &uncarte, pozitie_carte_jucator, carti_consumate, &pozitie_carte_pachet, carti_masa);
 
     printf("%cmanaplayer%d:",NEWLINE, c2);
-    afisare_mana(player2, carti_masa, pozitie_carte_pachet);
+    afisareMana(player2, carti_masa, pozitie_carte_pachet);
     printf("%c%c", NEWLINE, NEWLINE);
 MAI_INCEARCA2:
     printf("Alege cartea pe care vrei sa o pui 0) 1) 2) 3)");
@@ -200,10 +199,10 @@ MAI_INCEARCA2:
     uncarte = player2->mana[pozitie_carte_jucator];
     if(uncarte.valoare==10 || uncarte.valoare==11)
         puncte++;
-    punere_masa(player2, &uncarte, pozitie_carte_jucator, carti_consumate, &pozitie_carte_pachet, carti_masa);
+    punereMasa(player2, &uncarte, pozitie_carte_jucator, carti_consumate, &pozitie_carte_pachet, carti_masa);
     if(uncarte.valoare==carti_masa[0].valoare || uncarte.valoare==7)
     {
-        //tre sa verifici daca chiar mai are ce sa puna ca sa castige runda
+
         for(i=0; i<4; i++)
         {
             if(player1->mana[i].valoare==7 || player1->mana[i].valoare==carti_masa[0].valoare)
@@ -239,7 +238,7 @@ MAI_INCEARCA2:
     pozitie_carte_pachet=0;
 }
 
-void runda_comp_vs_p(struct player* player1, struct player* player2, int ordine, int *carti_ramase, int *carti_consumate, int *castigator, struct carte pachet_amestecat[])
+void rundaComputerVsPlayer(struct player* player1, struct player* player2, int ordine, int *carti_ramase, int *carti_consumate, int *castigator, struct carte pachet_amestecat[])
 {
     struct carte carti_masa[32];
     int pozitie_carte_jucator,c1,c2,i,puncte=0,rasp,intreaba;
@@ -261,7 +260,7 @@ CONTINUARE:
     if(ordine==2)
     {
         printf("%cmanaplayer%d:", NEWLINE, c1);
-        afisare_mana(player1, carti_masa, pozitie_carte_pachet);
+        afisareMana(player1, carti_masa, pozitie_carte_pachet);
         printf("%c%c",NEWLINE,NEWLINE);
     }
     intreaba=0;
@@ -291,12 +290,12 @@ MAI_INCEARCA1:
     if(ordine==2)
     {
         uncarte = player1->mana[pozitie_carte_jucator];
-        punere_masa(player1, &uncarte, pozitie_carte_jucator, carti_consumate, &pozitie_carte_pachet, carti_masa);
+        punereMasa(player1, &uncarte, pozitie_carte_jucator, carti_consumate, &pozitie_carte_pachet, carti_masa);
     }
     else
     {
         uncarte = player1->mana[r];
-        punere_masa(player1, &uncarte, r, carti_consumate, &pozitie_carte_pachet, carti_masa);
+        punereMasa(player1, &uncarte, r, carti_consumate, &pozitie_carte_pachet, carti_masa);
     }
     if(uncarte.valoare==10 || uncarte.valoare==11)
         puncte++;
@@ -304,7 +303,7 @@ MAI_INCEARCA1:
     if(ordine==1)
     {
         printf("%cmanaplayer%d:", NEWLINE,c2);
-        afisare_mana(player2, carti_masa, pozitie_carte_pachet);
+        afisareMana(player2, carti_masa, pozitie_carte_pachet);
         printf("%c%c",NEWLINE,NEWLINE);
     }
 
@@ -332,19 +331,19 @@ MAI_INCEARCA2:
     if(ordine==1)
     {
         uncarte = player2->mana[pozitie_carte_jucator];
-        punere_masa(player2, &uncarte, pozitie_carte_jucator, carti_consumate, &pozitie_carte_pachet, carti_masa);
+        punereMasa(player2, &uncarte, pozitie_carte_jucator, carti_consumate, &pozitie_carte_pachet, carti_masa);
     }
     else
     {
         uncarte = player2->mana[r];
-        punere_masa(player2, &uncarte, r, carti_consumate, &pozitie_carte_pachet, carti_masa);
+        punereMasa(player2, &uncarte, r, carti_consumate, &pozitie_carte_pachet, carti_masa);
     }
     if(uncarte.valoare==10 || uncarte.valoare==11)
         puncte++;
 
     if(uncarte.valoare==carti_masa[0].valoare || uncarte.valoare==7)
     {
-        //tre sa verifici daca chiar mai are ce sa puna ca sa castige runda
+
         for(i=0; i<4; i++)
         {
             if(player1->mana[i].valoare==7 || player1->mana[i].valoare==carti_masa[0].valoare)
@@ -399,9 +398,9 @@ void joc(struct player* player1, struct player* player2, struct carte pachet_ame
         while(carti_consumate<32)
         {
             if(castigator==1)
-                runda_p_vs_p(player1, player2, 1, &carti_ramase, &carti_consumate, &castigator, pachet_amestecat);
+                rundaPlayerVsPlayer(player1, player2, 1, &carti_ramase, &carti_consumate, &castigator, pachet_amestecat);
             else
-                runda_p_vs_p(player2, player1, 2, &carti_ramase, &carti_consumate, &castigator, pachet_amestecat);
+                rundaPlayerVsPlayer(player2, player1, 2, &carti_ramase, &carti_consumate, &castigator, pachet_amestecat);
         }
         if(player1->puncte>player2->puncte)
         {
@@ -439,9 +438,9 @@ void joc(struct player* player1, struct player* player2, struct carte pachet_ame
             while(carti_consumate<32)
             {
                 if(castigator==1)
-                    runda_comp_vs_p(player1, player2, 1, &carti_ramase, &carti_consumate, &castigator, pachet_amestecat);
+                    rundaComputerVsPlayer(player1, player2, 1, &carti_ramase, &carti_consumate, &castigator, pachet_amestecat);
                 else
-                    runda_comp_vs_p(player2, player1, 2, &carti_ramase, &carti_consumate, &castigator, pachet_amestecat);
+                    rundaComputerVsPlayer(player2, player1, 2, &carti_ramase, &carti_consumate, &castigator, pachet_amestecat);
             }
             if(player1->puncte>player2->puncte)
             {
